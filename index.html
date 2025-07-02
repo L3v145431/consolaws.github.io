@@ -2,188 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>True/False Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WeSpark Console - Full Functionality</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
       --yellow: #FCD307;
-      --orange: #FFBC00;
       --black: #000000;
       --gray: #E2E2E2;
       --white: #FFFFFF;
-      --green: #2E7D32;
-      --red: #C62828;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: 'Helvetica', sans-serif; /* Cambio principal aquí */
     }
 
     body {
-      font-family: 'Helvetica', sans-serif;
+      font-family: 'Helvetica', sans-serif; /* Y aquí */
+      background: var(--gray);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #E2E2E2;
-      color: #000000;
-      overflow: auto;
+      min-height: 100vh;
+      padding: 20px;
     }
 
-    .game-wrapper {
-      width: 95vmin;
-      height: 80vmin;
-      max-width: 200vmin;
-      max-height: 90vmin;
-    }
-
-    .question-container {
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      background-color: #FFFFFF;
-      padding: 2.5vmin;
-      border-radius: 4vmin;
-      box-shadow: 0 0 3vmin rgba(0, 0, 0, 0.1);
+    /* El resto del CSS permanece exactamente igual */
+    .console {
+      background: #e0e0e0;
+      border: 4px solid #888;
+      border-radius: 10px;
+      padding: 20px;
+      width: 140vmin;
+      height: 110vmin;
+      max-width: 1000px;
+      max-height: 900px;
       text-align: center;
+      border-radius: 50px;
+      transform: scale(0.8);
+      transform-origin: center;
       position: relative;
-      overflow: auto;
-      display: flex;
-      flex-direction: column;
-    }
-
-    h1 {
-      color: var(--black);
-      margin-bottom: 2.5vmin;
-      font-size: 3vmin;
-    }
-
-    .question {
-      font-size: 2.5vmin;
-      margin-bottom: 2vmin;
-      color: var(--black);
-      min-height: 6vmin;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .image-container {
-      margin: 0 auto 2vmin;
-      max-width: 80%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .image {
-      max-width: 100%;
-      max-height: 20vmin;
-      height: auto;
-      border-radius: 1vmin;
-      margin-top: 1vmin;
-      display: block;
-      border: 0.1vmin solid var(--gray);
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5vmin;
-      margin-top: 2.5vmin;
-    }
-
-    button {
-      background-color: #FCD307;
-      color: #000000;
-      border: none;
-      border-radius: 0.5vmin;
-      cursor: pointer;
-      font-weight: bold;
-      padding: 1vmin 2vmin;
-      margin-top: 1vmin;
-      transition: background-color 0.3s;
-      font-size: 1.8vmin;
-    }
-
-    button:hover {
-      background-color: var(--orange);
-      transform: translateY(-0.2vmin);
-      box-shadow: 0 0.4vmin 0.8vmin rgba(0, 0, 0, 0.1);
-    }
-
-    button:active {
-      transform: translateY(0);
-    }
-
-    #feedback {
-      margin-top: 2vmin;
-      font-size: 2vmin;
-      font-weight: bold;
-      min-height: 3vmin;
-    }
-
-    .correct-feedback {
-      color: var(--green);
-      background-color: rgba(46, 125, 50, 0.1);
-      padding: 1vmin;
-      border-radius: 0.5vmin;
-    }
-
-    .incorrect-feedback {
-      color: var(--red);
-      background-color: rgba(198, 40, 40, 0.1);
-      padding: 1vmin;
-      border-radius: 0.5vmin;
-    }
-
-    #explanation {
-      margin-top: 1.5vmin;
-      font-size: 1.8vmin;
-      color: var(--black);
-      padding: 1vmin;
-      background-color: rgba(0, 0, 0, 0.05);
-      border-radius: 0.8vmin;
     }
 
     .progress-bar {
       display: flex;
       justify-content: space-between;
-      gap: 0.4vmin;
+      gap: 0.5vmin;
       width: 100%;
-      height: 1.2vmin;
-      margin-bottom: 2vmin;
+      height: 1.5vmin;
+      margin-bottom: 3vmin;
       background-color: transparent;
+      flex-shrink: 0;
     }
-
     .progress-segment {
       flex: 1;
       background-color: #ddd;
       transition: background-color 0.3s ease;
       height: 100%;
     }
-
     .progress-segment:first-child {
-      border-top-left-radius: 0.6vmin;
-      border-bottom-left-radius: 0.6vmin;
+      border-top-left-radius: 0.8vmin;
+      border-bottom-left-radius: 0.8vmin;
     }
-
     .progress-segment:last-child {
-      border-top-right-radius: 0.6vmin;
-      border-bottom-right-radius: 0.6vmin;
+      border-top-right-radius: 0.8vmin;
+      border-bottom-right-radius: 0.8vmin;
     }
-
     .progress-segment.filled {
       background: linear-gradient(to right, #FCD307, #FFBC00);
     }
-
     .progress-segment.flashing {
       animation: flash 1s infinite;
     }
-
     @keyframes flash {
       0%, 100% {
         background-color: #ddd;
@@ -193,192 +86,715 @@
       }
     }
 
-    .pill {
-      display: inline-block;
-      padding: 0.8vmin 1.6vmin;
-      border-radius: 2vmin;
-      font-weight: bold;
-      margin: 0.5vmin;
+    .screen {
+      background: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='dots' width='2' height='2' patternUnits='userSpaceOnUse'%3E%3Crect width='1' height='1' fill='%23999999'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23dots)' /%3E%3C/svg%3E");
+      margin: 0 auto 20px;
+      width: 250px;
+      height: 150px;
+      position: relative;
+      border: 4px solid #777;
+      border-radius: 8px;
+      overflow: hidden;
     }
 
-    .correct-pill {
-      background-color: rgba(46, 125, 50, 0.1);
-      color: var(--green);
+    .logo {
+      width: 60px;
+      position: absolute;
+      top: 64%;
+      left: 20%;
+      transform: translate(-50%, -50%) rotate(-30deg) scale(1);
+      transition: all 0.3s ease;
     }
 
-    .continue-pill {
-      background-color: var(--yellow);
-      color: var(--black);
-      border: none;
-      border-radius: 2vmin;
+    .target {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 50px;
+      height: 50px;
+      margin-left: -25px;
+      margin-top: -25px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .control {
+      flex: 1;
+      min-width: 100px;
+      margin: 5px;
+    }
+
+    .label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    .slider-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 150px;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .slider-track {
+      width: 10px;
+      border-radius: 10%;
+      height: 100px;
+      background: #3b3b3b;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .slider-thumb {
+      width: 80px;
+      height: 23px;
+      background: var(--yellow);
+      border: 3px solid var(--black);
+      position: absolute;
+      left: -35.9px;
+      top: 65px;
+      border-radius: 10%;
+      cursor: pointer;
+    }
+
+    .slider-thumb::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 15px solid var(--black);
+      top: 1px;
+      left: 28.6px;
+    }
+
+    .image-switcher {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+      position: relative;
+      height: 100px;
+    }
+
+    .rotating-image {
+      width: 60px;
+      height: 70px;
+      margin: 10px auto;
+      transition: transform 0.3s ease;
+      position: relative;
+      left: -25px;
+      top: 50px;
+    }
+
+    .image-options {
+      position: relative;
+      width: 100%;
+      height: 70px;
+      font-size: 10px;
+    }
+
+    .image-option {
+      position: absolute;
+      padding: 5px;
       cursor: pointer;
       font-weight: bold;
-      padding: 1vmin 2vmin;
-      margin-top: 1vmin;
-      transition: background-color 0.3s;
-      font-size: 1.8vmin;
+      color: #555;
     }
 
-    .continue-pill:hover {
-      background-color: var(--orange);
+    .image-option::after {
+      content: "•";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: calc(100% - 25px);
+      font-size: 50px;
+    }
+
+    .image-option.selected {
+      color: var(--black);
+    }
+
+    .image-option[data-value="Not needed"].selected {
+      color: red;
+    }
+
+    .image-option[data-value="Strategic"].selected {
+      color: green;
+    }
+
+    .image-option[data-value="Optimization"].selected {
+      color: orange;
+    }
+
+    .image-option[data-value="Not needed"] {
+      top: 35px;
+      left: 15%;
+      transform: translateX(-50%);
+    }
+
+    .image-option[data-value="Optimization"] {
+      top: 20px;
+      left: 18%;
+      transform: translateY(-50%);
+    }
+
+    .image-option[data-value="Strategic"] {
+      top: 45px;
+      right: 30%;
+      transform: translateY(-50%);
+    }
+
+    .bar {
+      background: linear-gradient(to top, #b82121, #db7575, #008000);
+      width: 30px;
+      height: 80px;
+      margin: auto;
+      position: relative;
+      border-radius: 8px;
+      border: 3px solid var(--white);
+      overflow: visible;
+    }
+
+    .yellow-triangle {
+      width: 0;
+      height: 0;
+      position: absolute;
+      cursor: pointer;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .triangle-left {
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 15px solid #fcd307;
+      left: -2px;
+    }
+
+    .triangle-right {
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 15px solid #fcd307;
+      right: -2px;
+    }
+
+    .triangle-gray {
+      border-left-color: #e2e2e2 !important;
+      border-right-color: #e2e2e2 !important;
+    }
+
+    #choiceButton {
+      margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      border: none;
+      background: var(--black);
+      color: red;
+      cursor: pointer;
+      margin-left: -65px;
+    }
+
+    input[type="radio"] {
+      accent-color: white;
+    }
+
+    input[type="radio"]:checked {
+      accent-color: var(--black);
+    }
+
+    label:hover {
+      background-color: #ffae00 !important;
     }
 
     .button-container {
+      position: relative;
+      height: 40px;
+      margin-top: 8px;
+    }
+
+    #pushButton {
+      margin-top: 0;
+      padding: 6px 15px;
+      font-size: 12px;
+      border-radius: 8px;
+      border: 3px solid var(--black);
+      background: var(--yellow);
+      color: var(--black);
+      cursor: pointer;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #retryButton {
+      margin-top: 0;
+      padding: 6px 15px;
+      font-size: 12px;
+      border-radius: 8px;
+      border: 3px solid var(--black);
+      background: var(--yellow);
+      color: var(--black);
+      cursor: pointer;
+      display: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #continueButton {
+      margin-top: 10px;
+      padding: 6px 15px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 3vmin;
+      border: none;
+      background: var(--yellow);
+      color: var(--black);
+      cursor: pointer;
+      display: none;
+      width: 150px;
+      margin: 10px auto;
+    }
+
+    .gauge-image {
+      width: 150px;
+      height: 70px;
+      margin: 0 auto;
+      display: block;
+      border-radius: 8%;
+    }
+
+    .fullscreen-message {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
       display: flex;
       justify-content: center;
-      gap: 1vmin;
-      margin-top: 1vmin;
+      align-items: center;
+      z-index: 1000;
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+      flex-direction: column;
+      display: none;
     }
 
-    .choose-option {
-      font-size: 2.5vmin;
-      margin-bottom: 2vmin;
+    .fullscreen-message.error {
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .fullscreen-message button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: var(--yellow);
       color: var(--black);
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 1.5vmin;
-      }
-
-      .buttons {
-        gap: 1vmin;
-      }
-
-      button {
-        flex: 1 1 100%;
-        padding: 1vmin;
-      }
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="game-wrapper">
-    <div class="question-container">
-      <h1></h1>
-      <div class="progress-bar" id="progress-bar">
-        <div class="progress-segment filled"></div>
-        <div class="progress-segment flashing"></div>
-        <div class="progress-segment"></div>
-        <div class="progress-segment"></div>
-        <div class="progress-segment"></div>
-        <div class="progress-segment"></div>
-        <div class="progress-segment"></div>
+  <div class="console">
+    <!-- Barra de progreso añadida -->
+    <div class="progress-bar">
+      <div class="progress-segment filled" id="segment1"></div>
+      <div class="progress-segment filled" id="segment2"></div>
+      <div class="progress-segment filled" id="segment3"></div>
+      <div class="progress-segment filled" id="segment4"></div>
+      <div class="progress-segment filled" id="segment5"></div>
+      <div class="progress-segment flashing" id="segment6"></div>
+      <div class="progress-segment" id="segment7"></div>
+    </div>
+    
+    <h3>6/7</h3>
+    <p>Interact with the console to<br>align the logo perfectly.</p>
+    <div class="screen" id="screen">
+      <img src="https://static.wixstatic.com/media/9c422e_1738f6701c4c414dbddba37729e29e07~mv2.png" class="logo" id="logo">
+      <svg class="target" viewBox="0 0 32 32">
+        <circle cx="16" cy="16" r="10" fill="none" stroke="#ffd025" stroke-width="2"/>
+        <circle cx="16" cy="16" r="5" fill="none" stroke="#ffd025" stroke-width="2"/>
+        <line x1="16" y1="0" x2="16" y2="32" stroke="#ffd025" stroke-width="2"/>
+        <line x1="0" y1="16" x2="32" y2="16" stroke="#ffd025" stroke-width="2"/>
+      </svg>
+    </div>
+    <h2><p><strong>Who's <span style="color:#000">WeSpark's</span> perfect customer?</strong></p></h2>
+    <div class="controls">
+      <div class="control">
+        <div class="label">Minimum<br>Budget</div>
+        <div class="slider-container">
+          <div class="label" style="font-size: 10px;">More than<br>5000USD net</div>
+          <div class="slider-track" id="sliderTrack">
+            <div class="slider-thumb" id="sliderThumb"></div>
+          </div>
+          <div class="label" style="font-size: 10px;">Less than<br>100USD net</div>
+        </div>
       </div>
-      <div class="image-container">
-        <img class="image" id="question-image" src="https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png" alt="Question image">
+      <div class="control">
+        <div class="label" style="width: 100px; height: 30px; position: relative; left: 20px; top: 0;">Project Importance</div>
+        <button id="choiceButton">Not needed</button>
+        <div class="image-switcher">
+          <div class="image-options">
+            <div class="image-option selected" data-value="Not needed">Not needed</div>
+            <div class="image-option" data-value="Optimization">Optimization</div>
+            <div class="image-option" data-value="Strategic">Strategic</div>
+          </div>
+          <img src="https://static.wixstatic.com/media/a687f1_fb6360799d3b4d1295e738a1e37d3d7f~mv2.png" class="rotating-image" id="rotatingImage">
+        </div>
       </div>
-      <div class="question" id="question"></div>
-      <div class="choose-option">Please select one option:</div>
-      <div class="buttons">
-        <button onclick="checkAnswer(true)">True</button>
-        <button onclick="checkAnswer(false)">False</button>
+      <div class="control">
+        <div class="label">How well you<br>know WeSpark</div>
+        <svg class="gauge-svg" viewBox="0 0 200 100" style="width: 150px; height: 80px; position: relative; left: 2px; top: 0; border-radius: 27px;">
+          <image href="https://static.wixstatic.com/media/a687f1_8b0c932c1f8f409189504a7f7be8fabe~mv2.png" width="200" height="100"/>
+          <line id="needle" x1="100" y1="80" x2="80" y2="10" stroke="black" stroke-width="4" stroke-linecap="round" transform="rotate(-50, 100, 100)"/>
+        </svg>
+        <div style="display: flex; flex-direction: column; gap: 5px; align-items: center;">
+          <label style="background: var(--yellow); padding: 8px 15px; border-radius: 30px; font-size: 12px; width: 150%; max-width: 170px; display: flex; align-items: center;">
+            <input type="radio" name="know" value="0" style="margin-right: 10px;" checked> I've heard about the agency
+          </label>
+          <label style="background: var(--yellow); padding: 8px 15px; border-radius: 30px; font-size: 12px; width: 150%; max-width: 170px; display: flex; align-items: center;">
+            <input type="radio" name="know" value="1" style="margin-right: 10px;"> I know a tiny bit about the agency
+          </label>
+          <label style="background: var(--yellow); padding: 8px 15px; border-radius: 30px; font-size: 12px; width: 150%; max-width: 170px; display: flex; align-items: center;">
+            <input type="radio" name="know" value="2" style="margin-right: 10px;"> I understand what WeSpark does
+          </label>
+          <label style="background: var(--yellow); padding: 8px 15px; border-radius: 30px; font-size: 12px; width: 150%; max-width: 170px; display: flex; align-items: center;">
+            <input type="radio" name="know" value="3" style="margin-right: 10px;"> I'm a big fan of WeSpark
+          </label>
+        </div>
       </div>
-
-      <div id="feedback"></div>
-      <div id="explanation"></div>
-      <div class="button-container" id="actionButtons"></div>
+      <div class="control">
+        <div class="label">Ready<br>to Start</div>
+        <div style="position: relative; height: 140px; display: flex; flex-direction: column; align-items: center;">
+          <div style="font-size: 10px; font-weight: normal; position: absolute; top: 5px; text-align: center;">In the next<br>2 Months</div>
+          <br>
+          <div class="bar" id="bar" style="width: 39px; height: 100px; top: 0;">
+            <div class="yellow-triangle triangle-left" id="triangle1"></div>
+            <div class="yellow-triangle triangle-right" id="triangle2"></div>
+          </div>
+          <div style="font-size: 10px; font-weight: normal; position: absolute; top: 130px; text-align: center;">In 1 Year</div>
+        </div>
+        <div class="button-container">
+          <button id="pushButton">Push</button>
+          <button id="retryButton">Retry</button>
+        </div>
+      </div>
+    </div>
+    <div id="continueContainer" style="text-align: center;">
+      <button id="continueButton">Continue [10]</button>
     </div>
   </div>
 
-  <canvas id="confetti-canvas" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100vmin; height: 100vmin; pointer-events: none; z-index: 100;"></canvas>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <!-- Fullscreen message container (solo para errores) -->
+  <div id="fullscreenMessage" class="fullscreen-message error">
+    <div id="messageContent"></div>
+    <button id="closeMessage">OK</button>
+  </div>
+
   <script>
-    let questions = [
-      {
-        question: "<strong>Does WeSpark leverage <br> Artificial Intelligence's power?</strong>",
-        answer: true,
-        image: "https://static.wixstatic.com/media/9c422e_e854a6e541554bdfba5311e3527e09b3~mv2.png",
-        explanation: "WeSpark uses AI as a core technology for new products & services, it teaches AI introduction training, and empowers all digital education courses with AI."
-      }
+    const logo = document.getElementById('logo');
+    const sliderThumb = document.getElementById('sliderThumb');
+    const sliderTrack = document.getElementById('sliderTrack');
+    const rotatingImage = document.getElementById('rotatingImage');
+    const imageOptions = document.querySelectorAll('.image-option');
+    const choiceButton = document.getElementById('choiceButton');
+    const needle = document.getElementById('needle');
+    const pushButton = document.getElementById('pushButton');
+    const retryButton = document.getElementById('retryButton');
+    const continueButton = document.getElementById('continueButton');
+    const triangle1 = document.getElementById('triangle1');
+    const triangle2 = document.getElementById('triangle2');
+    const bar = document.getElementById('bar');
+    const fullscreenMessage = document.getElementById('fullscreenMessage');
+    const messageContent = document.getElementById('messageContent');
+    const closeMessage = document.getElementById('closeMessage');
+    const progressSegments = [
+      document.getElementById('segment1'),
+      document.getElementById('segment2'),
+      document.getElementById('segment3'),
+      document.getElementById('segment4'),
+      document.getElementById('segment5'),
+      document.getElementById('segment6'),
+      document.getElementById('segment7')
     ];
 
-    let currentQuestionIndex = 0;
-    let correctAnswers = 1;
-    let confettiInterval;
-    let countdownInterval;
-    let countdown = 10;
+    let trianglePosition = 50;
+    let triangleDirection = 1;
+    let triangleSpeed = 1;
+    let triangleAnimationId;
+    let isAnimationRunning = true;
+    let confettiCount = 0;
+    let currentKnowOption = 0;
+    let currentProjectImportance = "Not needed";
+    let sliderPosition = 65; // Posición inicial del slider (50% aprox)
+    let currentProgress = 5; // Comienza en el segmento 6 (índice 5)
+
+    document.addEventListener('DOMContentLoaded', () => {
+      rotatingImage.style.transform = 'rotate(-70deg)';
+      logo.style.left = '20%';
+      startTriangleAnimation();
+      setInterval(checkLogoPosition, 100);
+      updateProgressBar();
+    });
 
     function updateProgressBar() {
-      const segments = document.querySelectorAll(".progress-segment");
-      segments.forEach((segment, index) => {
+      progressSegments.forEach((segment, index) => {
         segment.classList.remove('flashing');
-        if (index < correctAnswers) {
+        if (index < currentProgress) {
           segment.classList.add('filled');
-        }
-        if (index === correctAnswers) {
+        } else if (index === currentProgress) {
           segment.classList.add('flashing');
+        } else {
           segment.classList.remove('filled');
         }
       });
     }
 
-    function loadQuestion() {
-      const questionObj = questions[currentQuestionIndex];
-      document.getElementById("question").innerHTML = questionObj.question;
-      document.getElementById("question-image").src = questionObj.image || "";
-      document.getElementById("feedback").textContent = "";
-      document.getElementById("feedback").className = "";
-      document.getElementById("explanation").textContent = "";
-      document.getElementById("actionButtons").innerHTML = "";
-      document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = false);
+    function startTriangleAnimation() {
+      function animate() {
+        trianglePosition += triangleDirection * triangleSpeed;
+        if (trianglePosition >= 100) {
+          triangleDirection = -1;
+          trianglePosition = 100;
+        } else if (trianglePosition <= 0) {
+          triangleDirection = 1;
+          trianglePosition = 0;
+        }
+        triangle1.style.top = `${trianglePosition}%`;
+        triangle2.style.top = `${trianglePosition}%`;
+        if (isAnimationRunning) {
+          triangleAnimationId = requestAnimationFrame(animate);
+        }
+      }
+      animate();
     }
 
-    function checkAnswer(userAnswer) {
-      const correctAnswer = questions[currentQuestionIndex].answer;
-      const feedbackElement = document.getElementById("feedback");
-      const explanationElement = document.getElementById("explanation");
-      const actionButtons = document.getElementById("actionButtons");
+    function checkAllConditions() {
+      // Validación 1: Slider debe estar en la posición máxima (top: 0px)
+      const isSliderAtTop = parseInt(sliderThumb.style.top) === 0;
+      
+      // Validación 2: Project Importance debe ser "Strategic"
+      const isStrategic = currentProjectImportance === "Strategic";
+      
+      // Validación 3: Know WeSpark debe ser opción 2 o 3
+      const knowsWeSparkWell = currentKnowOption === 2 || currentKnowOption === 3;
+      
+      // Validación 4: Triángulo debe estar en la zona verde (<= 35%)
+      const isInGreenZone = trianglePosition <= 35;
+      
+      return isSliderAtTop && isStrategic && knowsWeSparkWell && isInGreenZone;
+    }
 
-      if (userAnswer === correctAnswer) {
-        document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = true);
-        feedbackElement.innerHTML = `<div class="pill correct-pill">Correct!</div>`;
-        startConfetti();
-        correctAnswers++;
+    function showFullscreenMessage(message) {
+      messageContent.innerHTML = message;
+      fullscreenMessage.style.display = 'flex';
+    }
+
+    closeMessage.addEventListener('click', () => {
+      fullscreenMessage.style.display = 'none';
+    });
+
+    pushButton.addEventListener('click', () => {
+      isAnimationRunning = false;
+      cancelAnimationFrame(triangleAnimationId);
+      
+      const allConditionsMet = checkAllConditions();
+      
+      if (allConditionsMet) {
+        // Todas las condiciones cumplidas - GANA
+        logo.style.top = '50%';
+        logo.style.left = '50%';
+        pushButton.style.display = 'none';
+        retryButton.style.display = 'none';
+        
+        // Actualizar barra de progreso
+        currentProgress = 6; // Mover al siguiente segmento (índice 6)
         updateProgressBar();
-        explanationElement.textContent = questions[currentQuestionIndex].explanation;
-
-        const continueButton = document.createElement("button");
-        continueButton.className = "continue-pill";
-        continueButton.textContent = `Continue [10]`;
-        continueButton.onclick = () => window.location.href = "https://levi5171.wixstudio.com/my-site-1/blank-2";
-        actionButtons.appendChild(continueButton);
-        startCountdown(continueButton);
+        
+        // Mostrar confetti y botón de continuar inmediatamente
+        celebrateWithConfetti();
+        startCountdown();
       } else {
-        document.querySelectorAll(".buttons button").forEach(btn => btn.disabled = false);
-        feedbackElement.innerHTML = `<div class="incorrect-feedback">Incorrect!</div>`;
-        explanationElement.textContent = questions[currentQuestionIndex].explanation;
+        // Alguna condición no cumplida - PIERDE
+        logo.style.top = '80%';
+        logo.style.left = '50%';
+        pushButton.style.display = 'none';
+        retryButton.style.display = 'block';
+        triangle1.classList.add('triangle-gray');
+        triangle2.classList.add('triangle-gray');
+        
+        // Mostrar mensaje de error con las condiciones no cumplidas
+        let errorMessage = "You don't meet all the requirements for WeSpark's ideal customer:<br><br>";
+        const isSliderAtTop = parseInt(sliderThumb.style.top) === 0;
+        const isStrategic = currentProjectImportance === "Strategic";
+        const knowsWeSparkWell = currentKnowOption === 2 || currentKnowOption === 3;
+        const isInGreenZone = trianglePosition <= 35;
+        
+        if (!isSliderAtTop) errorMessage += "✗ Minimum budget must be over 5000USD<br>";
+        if (!isStrategic) errorMessage += "✗ Project must be Strategic (not Optimization or Not needed)<br>";
+        if (!knowsWeSparkWell) errorMessage += "✗ You should understand what WeSpark does or be a fan<br>";
+        if (!isInGreenZone) errorMessage += "✗ Must be ready to start in the next 2 months (green zone)";
+        
+        showFullscreenMessage(errorMessage);
+      }
+    });
+
+    function checkLogoPosition() {
+      const logoRect = logo.getBoundingClientRect();
+      const targetRect = document.querySelector('.target').getBoundingClientRect();
+      const logoCenterX = logoRect.left + logoRect.width / 2;
+      const logoCenterY = logoRect.top + logoRect.height / 2;
+      const targetCenterX = targetRect.left + targetRect.width / 2;
+      const targetCenterY = targetRect.top + targetRect.height / 2;
+      const distance = Math.sqrt(Math.pow(logoCenterX - targetCenterX, 2) + Math.pow(logoCenterY - targetCenterY, 2));
+      
+      // Solo activar confetti si todas las condiciones están cumplidas
+      if (distance < 10 && checkAllConditions() && confettiCount < 3) {
+        celebrateWithConfetti();
+        confettiCount++;
+        startCountdown();
       }
     }
 
-    function startCountdown(button) {
-      countdown = 10;
-      button.textContent = `Continue [${countdown}]`;
-      countdownInterval = setInterval(() => {
-        countdown--;
-        button.textContent = `Continue [${countdown}]`;
-        if (countdown <= 0) {
+    retryButton.addEventListener('click', () => {
+      isAnimationRunning = true;
+      startTriangleAnimation();
+      pushButton.style.display = 'block';
+      retryButton.style.display = 'none';
+      triangle1.classList.remove('triangle-gray');
+      triangle2.classList.remove('triangle-gray');
+      fullscreenMessage.style.display = 'none';
+    });
+
+    let isDragging = false;
+    let startY = 0;
+    let startTop = 0;
+
+    sliderThumb.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startY = e.clientY;
+      startTop = parseInt(window.getComputedStyle(sliderThumb).top, 10) || 65;
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaY = e.clientY - startY;
+      let newTop = startTop + deltaY;
+      const trackHeight = sliderTrack.offsetHeight;
+      const thumbHeight = sliderThumb.offsetHeight;
+      const maxTop = trackHeight - thumbHeight;
+      
+      if (newTop < 0) {
+        newTop = 0;
+      } else if (newTop > maxTop) {
+        newTop = maxTop;
+      }
+      
+      sliderThumb.style.top = `${newTop}px`;
+      sliderPosition = newTop;
+      
+      const scale = 1 - newTop / maxTop;
+      const currentTransform = window.getComputedStyle(logo).transform;
+      const matrix = currentTransform.match(/^matrix\((.+)\)$/);
+      let rotation = -30;
+      
+      if (matrix) {
+        const values = matrix[1].split(', ');
+        const a = values[0];
+        const b = values[1];
+        rotation = Math.round(Math.atan2(b, a) * (180/Math.PI));
+      }
+      
+      logo.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${0.5 + scale})`;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    imageOptions.forEach((option, index) => {
+      option.addEventListener('click', () => {
+        imageOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        const positions = ['20%', 'calc(50% - 30px)', '50%'];
+        logo.style.left = positions[index];
+        const rotations = ['-70deg', '-36deg', '2deg'];
+        rotatingImage.style.transform = `rotate(${rotations[index]})`;
+        choiceButton.textContent = option.textContent;
+        choiceButton.style.color = option.getAttribute('data-value') === 'Strategic' ? 'green' : 
+                                  option.getAttribute('data-value') === 'Optimization' ? 'orange' : 'red';
+        
+        // Guardar la selección actual
+        currentProjectImportance = option.getAttribute('data-value');
+      });
+    });
+
+    document.querySelectorAll('input[name="know"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        currentKnowOption = parseInt(e.target.value);
+        const angleMap = [-50, -10, 35, 75];
+        const angle = angleMap[currentKnowOption] || -90;
+        needle.setAttribute('transform', `rotate(${angle}, 100, 100)`);
+        const currentTransform = window.getComputedStyle(logo).transform;
+        const scaleMatch = currentTransform.match(/scale\(([0-9.]+)\)/);
+        const currentScale = scaleMatch ? parseFloat(scaleMatch[1]) : 1.5;
+        
+        if (currentKnowOption == 0) {
+          logo.style.transform = `translate(-50%, -50%) rotate(180deg) scale(${currentScale})`;
+        } else if (currentKnowOption == 1) {
+          logo.style.transform = `translate(-50%, -50%) rotate(-90deg) scale(${currentScale})`;
+        } else if (currentKnowOption == 2 || currentKnowOption == 3) {
+          logo.style.transform = `translate(-50%, -50%) rotate(0deg) scale(${currentScale})`;
+        }
+      });
+    });
+
+    function celebrateWithConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    function startCountdown() {
+      let count = 10;
+      continueButton.style.display = 'block';
+      continueButton.textContent = `Continue [${count}]`;
+      const countdownInterval = setInterval(() => {
+        count--;
+        continueButton.textContent = `Continue [${count}]`;
+        if (count <= 0) {
           clearInterval(countdownInterval);
-          window.location.href = "https://levi5171.wixstudio.com/my-site-1/blank-2";
+          window.location.href = 'https://levi5171.wixstudio.com/my-site-1/blank-5';
         }
       }, 1000);
+      
+      continueButton.addEventListener('click', () => {
+        clearInterval(countdownInterval);
+        window.location.href = 'https://levi5171.wixstudio.com/my-site-1/blank-5';
+      });
     }
-
-    function startConfetti() {
-      const canvas = document.getElementById("confetti-canvas");
-      const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
-      if (confettiInterval) clearInterval(confettiInterval);
-      let count = 0;
-      confettiInterval = setInterval(() => {
-        myConfetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-        if (++count >= 3) clearInterval(confettiInterval);
-      }, 1000);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      loadQuestion();
-      updateProgressBar();
-    });
   </script>
 </body>
 </html>

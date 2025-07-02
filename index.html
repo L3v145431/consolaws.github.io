@@ -17,35 +17,33 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Helvetica', sans-serif; /* Cambio principal aquí */
+      font-family: 'Helvetica', sans-serif;
     }
 
     body {
-      font-family: 'Helvetica', sans-serif; /* Y aquí */
+      font-family: 'Helvetica', sans-serif;
       background: var(--gray);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
-       overflow: hidden; /* Esto deshabilita el scroll */
+      overflow: hidden;
     }
 
-    /* El resto del CSS permanece exactamente igual */
     .console {
       background: #e0e0e0;
       border: 4px solid #888;
-      border-radius: 10px;
+      border-radius: 50px;
       padding: 20px;
       width: 140vmin;
       height: 110vmin;
       max-width: 1000px;
       max-height: 900px;
       text-align: center;
-      border-radius: 50px;
+      position: relative;
       transform: scale(0.8);
       transform-origin: center;
-      position: relative;
     }
 
     .progress-bar {
@@ -58,26 +56,32 @@
       background-color: transparent;
       flex-shrink: 0;
     }
+
     .progress-segment {
       flex: 1;
       background-color: #ddd;
       transition: background-color 0.3s ease;
       height: 100%;
     }
+
     .progress-segment:first-child {
       border-top-left-radius: 0.8vmin;
       border-bottom-left-radius: 0.8vmin;
     }
+
     .progress-segment:last-child {
       border-top-right-radius: 0.8vmin;
       border-bottom-right-radius: 0.8vmin;
     }
+
     .progress-segment.filled {
       background: linear-gradient(to right, #FCD307, #FFBC00);
     }
+
     .progress-segment.flashing {
       animation: flash 1s infinite;
     }
+
     @keyframes flash {
       0%, 100% {
         background-color: #ddd;
@@ -416,7 +420,6 @@
 </head>
 <body>
   <div class="console">
-    <!-- Barra de progreso añadida -->
     <div class="progress-bar">
       <div class="progress-segment filled" id="segment1"></div>
       <div class="progress-segment filled" id="segment2"></div>
@@ -426,7 +429,7 @@
       <div class="progress-segment flashing" id="segment6"></div>
       <div class="progress-segment" id="segment7"></div>
     </div>
-    
+
     <h3>6/7</h3>
     <p>Interact with the console to<br>align the logo perfectly.</p>
     <div class="screen" id="screen">
@@ -505,7 +508,6 @@
     </div>
   </div>
 
-  <!-- Fullscreen message container (solo para errores) -->
   <div id="fullscreenMessage" class="fullscreen-message error">
     <div id="messageContent"></div>
     <button id="closeMessage">OK</button>
@@ -546,8 +548,8 @@
     let confettiCount = 0;
     let currentKnowOption = 0;
     let currentProjectImportance = "Not needed";
-    let sliderPosition = 65; // Posición inicial del slider (50% aprox)
-    let currentProgress = 5; // Comienza en el segmento 6 (índice 5)
+    let sliderPosition = 65;
+    let currentProgress = 5;
 
     document.addEventListener('DOMContentLoaded', () => {
       rotatingImage.style.transform = 'rotate(-70deg)';
@@ -590,18 +592,11 @@
     }
 
     function checkAllConditions() {
-      // Validación 1: Slider debe estar en la posición máxima (top: 0px)
       const isSliderAtTop = parseInt(sliderThumb.style.top) === 0;
-      
-      // Validación 2: Project Importance debe ser "Strategic"
       const isStrategic = currentProjectImportance === "Strategic";
-      
-      // Validación 3: Know WeSpark debe ser opción 2 o 3
       const knowsWeSparkWell = currentKnowOption === 2 || currentKnowOption === 3;
-      
-      // Validación 4: Triángulo debe estar en la zona verde (<= 35%)
       const isInGreenZone = trianglePosition <= 35;
-      
+
       return isSliderAtTop && isStrategic && knowsWeSparkWell && isInGreenZone;
     }
 
@@ -617,44 +612,39 @@
     pushButton.addEventListener('click', () => {
       isAnimationRunning = false;
       cancelAnimationFrame(triangleAnimationId);
-      
+
       const allConditionsMet = checkAllConditions();
-      
+
       if (allConditionsMet) {
-        // Todas las condiciones cumplidas - GANA
         logo.style.top = '50%';
         logo.style.left = '50%';
         pushButton.style.display = 'none';
         retryButton.style.display = 'none';
-        
-        // Actualizar barra de progreso
-        currentProgress = 6; // Mover al siguiente segmento (índice 6)
+
+        currentProgress = 6;
         updateProgressBar();
-        
-        // Mostrar confetti y botón de continuar inmediatamente
+
         celebrateWithConfetti();
         startCountdown();
       } else {
-        // Alguna condición no cumplida - PIERDE
         logo.style.top = '80%';
         logo.style.left = '50%';
         pushButton.style.display = 'none';
         retryButton.style.display = 'block';
         triangle1.classList.add('triangle-gray');
         triangle2.classList.add('triangle-gray');
-        
-        // Mostrar mensaje de error con las condiciones no cumplidas
+
         let errorMessage = "You don't meet all the requirements for WeSpark's ideal customer:<br><br>";
         const isSliderAtTop = parseInt(sliderThumb.style.top) === 0;
         const isStrategic = currentProjectImportance === "Strategic";
         const knowsWeSparkWell = currentKnowOption === 2 || currentKnowOption === 3;
         const isInGreenZone = trianglePosition <= 35;
-        
+
         if (!isSliderAtTop) errorMessage += "✗ Minimum budget must be over 5000USD<br>";
         if (!isStrategic) errorMessage += "✗ Project must be Strategic (not Optimization or Not needed)<br>";
         if (!knowsWeSparkWell) errorMessage += "✗ You should understand what WeSpark does or be a fan<br>";
         if (!isInGreenZone) errorMessage += "✗ Must be ready to start in the next 2 months (green zone)";
-        
+
         showFullscreenMessage(errorMessage);
       }
     });
@@ -667,8 +657,7 @@
       const targetCenterX = targetRect.left + targetRect.width / 2;
       const targetCenterY = targetRect.top + targetRect.height / 2;
       const distance = Math.sqrt(Math.pow(logoCenterX - targetCenterX, 2) + Math.pow(logoCenterY - targetCenterY, 2));
-      
-      // Solo activar confetti si todas las condiciones están cumplidas
+
       if (distance < 10 && checkAllConditions() && confettiCount < 3) {
         celebrateWithConfetti();
         confettiCount++;
@@ -704,28 +693,28 @@
       const trackHeight = sliderTrack.offsetHeight;
       const thumbHeight = sliderThumb.offsetHeight;
       const maxTop = trackHeight - thumbHeight;
-      
+
       if (newTop < 0) {
         newTop = 0;
       } else if (newTop > maxTop) {
         newTop = maxTop;
       }
-      
+
       sliderThumb.style.top = `${newTop}px`;
       sliderPosition = newTop;
-      
+
       const scale = 1 - newTop / maxTop;
       const currentTransform = window.getComputedStyle(logo).transform;
       const matrix = currentTransform.match(/^matrix\((.+)\)$/);
       let rotation = -30;
-      
+
       if (matrix) {
         const values = matrix[1].split(', ');
         const a = values[0];
         const b = values[1];
         rotation = Math.round(Math.atan2(b, a) * (180/Math.PI));
       }
-      
+
       logo.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${0.5 + scale})`;
     });
 
@@ -742,10 +731,9 @@
         const rotations = ['-70deg', '-36deg', '2deg'];
         rotatingImage.style.transform = `rotate(${rotations[index]})`;
         choiceButton.textContent = option.textContent;
-        choiceButton.style.color = option.getAttribute('data-value') === 'Strategic' ? 'green' : 
-                                  option.getAttribute('data-value') === 'Optimization' ? 'orange' : 'red';
-        
-        // Guardar la selección actual
+        choiceButton.style.color = option.getAttribute('data-value') === 'Strategic' ? 'green' :
+                                    option.getAttribute('data-value') === 'Optimization' ? 'orange' : 'red';
+
         currentProjectImportance = option.getAttribute('data-value');
       });
     });
@@ -759,7 +747,7 @@
         const currentTransform = window.getComputedStyle(logo).transform;
         const scaleMatch = currentTransform.match(/scale\(([0-9.]+)\)/);
         const currentScale = scaleMatch ? parseFloat(scaleMatch[1]) : 1.5;
-        
+
         if (currentKnowOption == 0) {
           logo.style.transform = `translate(-50%, -50%) rotate(180deg) scale(${currentScale})`;
         } else if (currentKnowOption == 1) {
@@ -790,7 +778,7 @@
           window.location.href = 'https://levi5171.wixstudio.com/my-site-1/blank-5';
         }
       }, 1000);
-      
+
       continueButton.addEventListener('click', () => {
         clearInterval(countdownInterval);
         window.location.href = 'https://levi5171.wixstudio.com/my-site-1/blank-5';

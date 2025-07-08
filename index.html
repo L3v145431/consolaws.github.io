@@ -436,14 +436,18 @@
       font-size: 2.5vmin;
       margin: 1vmin 0;
     }
-    .gray-rectangle {
-  background-color: #ccc;
-  padding:-90px;
-  border-radius: 1vmin;
-  display: flex;
-  justify-content: center;
-  height: 266px;
- 
+.gray-rectangle {
+    background-color: #ccc;
+    border-radius: 1vmin;
+    display: flex;
+    justify-content: center;
+    height: 266px;
+    position: absolute; /* Cambia a 'fixed' si quieres que sea fijo en la pantalla */
+    top: 70%; /* Ajusta estos valores según la posición deseada */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el rectángulo */
+    width: 90%; /* Ajusta el ancho según sea necesario */
+    max-width: 1000px; /* Ajusta el ancho máximo según sea necesario */
 }
 
 /* Ajuste para móviles */

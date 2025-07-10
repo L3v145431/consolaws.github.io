@@ -597,7 +597,7 @@ label:has(input[type="radio"]:checked) {
         <button id="retryButton">Retry</button>
       </div>
       <div id="continueContainer" style="text-align: center;">
-        <button id="continueButton">Continue [10]</button>
+        <button id="continueButton">Continue (10)</button>
       </div>
     </div>
     </div>
@@ -915,10 +915,10 @@ label:has(input[type="radio"]:checked) {
     
     function startCountdown() {
       let count = 10;
-      continueButton.textContent = `Continue [${count}]`;
+      continueButton.textContent = `Continue (${count})`;
       const countdownInterval = setInterval(() => {
         count--;
-        continueButton.textContent = `Continue [${count}]`;
+        continueButton.textContent = `Continue (${count})`;
         if (count <= 0) {
           clearInterval(countdownInterval);
           window.location.href = 'https://l3v145431.github.io/game7.github.io/';

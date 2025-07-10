@@ -188,7 +188,7 @@
       margin: 1vmin auto;
       transition: transform 0.3s ease;
       position: relative;
-      left: -4vmin;
+      left: -3.8vmin;
       top: 8vmin;
     }
     .image-options {
@@ -231,7 +231,7 @@
     }
     .image-option[data-value="Optimization"] {
       top: 3vmin;
-      left: 5%;
+      left: 6%;
       transform: translateY(-50%);
     }
     .image-option[data-value="Strategic"] {
@@ -283,7 +283,7 @@
       background: var(--black);
       color: red;
       cursor: pointer;
-      margin-left: -10vmin;
+      margin-left: -7.8vmin;
     }
     input[type="radio"] {
       accent-color: white;
@@ -299,7 +299,7 @@
       position: relative;
       height: 5vmin;
       margin-top: 34.9vmin;
-      left: -11.1vmin;
+      left: -10.7vmin;
     }
     @media only screen and (max-width: 768px) {
       .bar {
@@ -343,7 +343,7 @@
       font-weight: normal;
       text-align: center;
       position: absolute;
-      bottom: 4vmin;
+      bottom: 2vmin;
       left: 88%;
       transform: translateX(-50%);
     }
@@ -358,31 +358,32 @@
       color: var(--black);
       cursor: pointer;
       display: none;
-      
-       
       width: 25vmin;
       margin: 1vmin auto;
     }
-  @media only screen and (max-width: 768px) {
-  #continueContainer {
-    position: fixed;
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    z-index: 1000;
-    pointer-events: all;
-  }
-
-  #continueButton {
-    font-size: 2.2vmin;
-    width: 25vmin;
-    padding: 1.2vmin 2.5vmin;
-    border-radius: 2vmin;
-    margin: 0 auto;
-  }
+    @media only screen and (max-width: 768px) {
+      #continueContainer {
+        position: fixed;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        z-index: 1000;
+        pointer-events: all;
+      }
+      #continueButton {
+        font-size: 2.2vmin;
+        width: 25vmin;
+        padding: 1.2vmin 2.5vmin;
+        border-radius: 2vmin;
+        margin: 0 auto;
+      }
+    }
+    input[type="radio"]:checked + label,
+label:has(input[type="radio"]:checked) {
+  background-color: #FFBC00 !important;
+  color: black;
 }
-
 
     #continueContainer {
       position: fixed;
@@ -400,59 +401,20 @@
       display: block;
       border-radius: 0.6vmin;
     }
-    .fullscreen-message {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
+    .gray-rectangle {
+      background-color: #ccc;
+      border-radius: 1vmin;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
-      color: white;
-      font-size: 3vmin;
-      text-align: center;
-      padding: 3vmin;
+      width: 90vmin;
+      max-width: 100%;
+      aspect-ratio: 1 / -1;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      padding: 2vmin;
       box-sizing: border-box;
-      flex-direction: column;
-      display: none;
     }
-    .fullscreen-message.error {
-      background-color: rgba(0, 0, 0, 0.9);
-    }
-    .fullscreen-message button {
-      margin-top: 3vmin;
-      padding: 1.5vmin 3vmin;
-      font-size: 2.5vmin;
-      background-color: var(--yellow);
-      color: var(--black);
-      border: none;
-      border-radius: 0.5vmin;
-      cursor: pointer;
-    }
-    h3 {
-      font-size: 2.5vmin;
-      margin: 1vmin 0;
-    }
-.gray-rectangle {
-    background-color: #ccc;
-    border-radius: 1vmin;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90vmin;
-    max-width: 100%;
-    aspect-ratio: 1 / -1;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    padding: 2vmin;
-    box-sizing: border-box;
-}
-
-
-
     p {
       font-size: 2vmin;
       margin: 1vmin 0 2vmin;
@@ -464,6 +426,68 @@
     h7 {
       font-size: 1.7vmin;
       margin: 1vmin 0;
+    }
+    /* Estilo para el checkbox de Minimum Budget */
+#budgetCheckbox {
+  top: -8.4vmin; /* Ajusta este valor según necesites */
+  left: 19.3%;
+  transform: translateX(-50%);
+}
+
+/* Estilo para el checkbox de Project Importance */
+#importanceCheckbox {
+  top: -8.4vmin; /* Ajusta este valor según necesites */
+  left: 30%;
+  transform: translateX(-50%);
+}
+
+/* Estilo para el checkbox de How well you know WeSpark */
+#knowCheckbox {
+  top: -8.4vmin; /* Ajusta este valor según necesites */
+  left: 25%;
+  transform: translateX(-50%);
+}
+
+/* Estilo para el checkbox de Ready to Start */
+#readyCheckbox {
+  top: -8.4vmin; /* Ajusta este valor según necesites */
+  left: 38%;
+  transform: translateX(-50%);
+}
+
+    
+    /* Estilos para las checkboxes */
+    .checkbox-container {
+      position: relative;
+      display: inline-block;
+      margin-left: 1vmin;
+    }
+    
+    .checkbox {
+      width: 2.5vmin;
+      height: 2.5vmin;
+      background-color: #fff;
+      border: 0vmin solid #000;
+      border-radius: 0.5vmin;
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+     
+    }
+    
+    .checkbox.checked {
+      background-color: #fff;
+    }
+    
+    .checkbox.checked::after {
+      content: "✓";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2vmin;
+      color: green;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -493,9 +517,13 @@
     <div class="gray-rectangle">
     <div class="controls">
       <div class="control">
-        <div class="label">Minimum<br>Budget</div>
+        <div class="label " style="width: 10vmin;left: 27%;position: relative; "  >Minimum<br>Budget
+          <div class="checkbox-container">
+            <div class="checkbox" id="budgetCheckbox"></div>
+          </div>
+        </div>
         <div class="slider-container">
-          <div class="label" style="font-size: 1.5vmin;">More than<br>5000USD net</div>
+          <div class="label" style="font-size: 1.5vmin; ">More than<br>5000USD net</div>
           <div class="slider-track" id="sliderTrack">
             <div class="slider-thumb" id="sliderThumb"></div>
           </div>
@@ -503,7 +531,11 @@
         </div>
       </div>
       <div class="control">
-        <div class="label" style="width: 20vmin; height: 5vmin; position: relative; left: -4vmin; top: 0; font-size: 2vmin;">Project<br>Importance</div>
+        <div class="label" style="width: 10vmin; height: 5vmin; position: relative; left: 1.6vmin; top: 0; font-size: 2vmin;">Project<br>Importance
+          <div class="checkbox-container">
+            <div class="checkbox" id="importanceCheckbox"></div>
+          </div>
+        </div>
         <button id="choiceButton">Not needed</button>
         <div class="image-switcher">
           <div class="image-options">
@@ -511,11 +543,17 @@
             <div class="image-option" data-value="Optimization">Optimization</div>
             <div class="image-option" data-value="Strategic">Strategic</div>
           </div>
+          
           <img src="https://static.wixstatic.com/media/a687f1_fb6360799d3b4d1295e738a1e37d3d7f~mv2.png" class="rotating-image" id="rotatingImage">
         </div>
       </div>
+      
       <div class="control">
-        <div class="label">How well you<br>know WeSpark</div>
+        <div class="label" style="width: 14vmin;left: 15%;position: relative; ">How well you<br>know WeSpark
+          <div class="checkbox-container">
+            <div class="checkbox" id="knowCheckbox"></div>
+          </div>
+        </div>
         <svg class="gauge-svg" viewBox="0 0 200 100">
           <image href="https://static.wixstatic.com/media/a687f1_de407fb512d949aca263d8d7f3ce2e71~mv2.png" width="200" height="100"/>
           <circle cx="100" cy="80" r="10" fill="black"/>
@@ -537,9 +575,12 @@
         </div>
       </div>
       <div class="control">
-        <div class="label">Ready<br>to Start</div>
+        <div class="label" style="width: 10vmin;left: 24%;position: relative; " >Ready<br>to Start
+          <div class="checkbox-container">
+            <div class="checkbox" id="readyCheckbox"></div>
+          </div>
+        </div>
         <div style="position: relative; height: auto; display: flex; flex-direction: column; align-items: center;"></div>
-        
         <div style="font-size: 1.5vmin; font-weight: normal; position: right; top: 48vmin; text-align: center;">In the next<br>2 Months</div>
         <br>
         <div class="bar" id="bar" style="width: 6vmin; height: 20vmin; top: 0;">
@@ -547,10 +588,11 @@
           <div class="yellow-triangle triangle-right" id="triangle2"></div>
         </div>
         <br>
-        
         <h7 class="in-one-year">In 1 year</h7>
       </div>
+      
       <div class="button-container">
+        <br>
         <button id="pushButton">Push</button>
         <button id="retryButton">Retry</button>
       </div>
@@ -559,10 +601,6 @@
       </div>
     </div>
     </div>
-  </div>
-  <div id="fullscreenMessage" class="fullscreen-message error">
-    <div id="messageContent"></div>
-    <button id="closeMessage">OK</button>
   </div>
   <script>
     const logo = document.getElementById('logo');
@@ -578,9 +616,6 @@
     const triangle1 = document.getElementById('triangle1');
     const triangle2 = document.getElementById('triangle2');
     const bar = document.getElementById('bar');
-    const fullscreenMessage = document.getElementById('fullscreenMessage');
-    const messageContent = document.getElementById('messageContent');
-    const closeMessage = document.getElementById('closeMessage');
     const progressSegments = [
       document.getElementById('segment1'),
       document.getElementById('segment2'),
@@ -590,6 +625,11 @@
       document.getElementById('segment6'),
       document.getElementById('segment7')
     ];
+    const budgetCheckbox = document.getElementById('budgetCheckbox');
+    const importanceCheckbox = document.getElementById('importanceCheckbox');
+    const knowCheckbox = document.getElementById('knowCheckbox');
+    const readyCheckbox = document.getElementById('readyCheckbox');
+    
     let trianglePosition = 50;
     let triangleDirection = 1;
     let triangleSpeed = 1.8;
@@ -601,9 +641,9 @@
     let sliderPosition = 50;
     let currentProgress = 5;
     let allConditionsMet = false;
-
+    
     document.addEventListener('DOMContentLoaded', () => {
-      rotatingImage.style.transform = 'rotate(-70deg)';
+      rotatingImage.style.transform = 'rotate(-64deg)';
       logo.style.left = '20%';
       sliderThumb.style.top = '12vmin';
       startTriangleAnimation();
@@ -611,7 +651,18 @@
       updateProgressBar();
       rotatingImage.addEventListener('click', cycleToNextOption);
     });
-
+    
+    function updateCheckboxes() {
+      // Budget checkbox (slider at top)
+      budgetCheckbox.classList.toggle('checked', parseInt(sliderThumb.style.top) <= 2);
+      
+      // Importance checkbox (Strategic selected)
+      importanceCheckbox.classList.toggle('checked', currentProjectImportance === "Strategic");
+      
+      // Know checkbox (options 2 or 3 selected)
+      knowCheckbox.classList.toggle('checked', currentKnowOption === 2 || currentKnowOption === 3);
+    }
+    
     function cycleToNextOption() {
       const options = Array.from(imageOptions);
       let currentSelectedIndex = options.findIndex(option => option.classList.contains('selected'));
@@ -620,15 +671,16 @@
       options[currentSelectedIndex].classList.add('selected');
       const positions = ['20%', 'calc(50% - 5vmin)', '50%'];
       logo.style.left = positions[currentSelectedIndex];
-      const rotations = ['-70deg', '-38deg', '-2deg'];
+      const rotations = ['-70deg', '-38deg', '-20deg'];
       rotatingImage.style.transform = `rotate(${rotations[currentSelectedIndex]})`;
       choiceButton.textContent = options[currentSelectedIndex].textContent;
       choiceButton.style.color = options[currentSelectedIndex].getAttribute('data-value') === 'Strategic' ? 'green' :
         options[currentSelectedIndex].getAttribute('data-value') === 'Optimization' ? 'orange' : 'red';
       currentProjectImportance = options[currentSelectedIndex].getAttribute('data-value');
+      updateCheckboxes();
       handleCelebration();
     }
-
+    
     function updateProgressBar() {
       progressSegments.forEach((segment, index) => {
         segment.classList.remove('flashing');
@@ -641,7 +693,7 @@
         }
       });
     }
-
+    
     function startTriangleAnimation() {
       function animate() {
         trianglePosition += triangleDirection * triangleSpeed;
@@ -660,7 +712,7 @@
       }
       animate();
     }
-
+    
     function checkAllConditions() {
       const isSliderAtTop = parseInt(sliderThumb.style.top) <= 2;
       const isStrategic = currentProjectImportance === "Strategic";
@@ -668,40 +720,32 @@
       const isInGreenZone = trianglePosition <= 35;
       return isSliderAtTop && isStrategic && knowsWeSparkWell && isInGreenZone;
     }
-
+    
     function handleCelebration() {
       if (checkAllConditions()) {
         // Centrar el logo
         logo.style.top = '50%';
         logo.style.left = '50%';
         logo.style.transform = 'translate(-50%, -50%) rotate(0deg) scale(1.5)';
-
         celebrateWithConfetti();
         continueButton.style.display = 'block';
         startCountdown();
       }
     }
-
-    function showFullscreenMessage(message) {
-      messageContent.innerHTML = message;
-      fullscreenMessage.style.display = 'flex';
-    }
-
-    closeMessage.addEventListener('click', () => {
-      fullscreenMessage.style.display = 'none';
-    });
-
+    
     pushButton.addEventListener('click', () => {
       isAnimationRunning = false;
       cancelAnimationFrame(triangleAnimationId);
       allConditionsMet = checkAllConditions();
-
+      
+      // Actualizar checkbox del cuarto apartado SOLO cuando se hace clic en Push
+      readyCheckbox.classList.toggle('checked', trianglePosition <= 35);
+      
       if (allConditionsMet) {
         // Centrar el logo
         logo.style.top = '50%';
         logo.style.left = '50%';
         logo.style.transform = 'translate(-50%, -50%) rotate(0deg) scale(1.5)';
-
         pushButton.style.display = 'none';
         retryButton.style.display = 'none';
         currentProgress = 6;
@@ -715,19 +759,9 @@
         retryButton.style.display = 'block';
         triangle1.classList.add('triangle-gray');
         triangle2.classList.add('triangle-gray');
-        let errorMessage = "You don't meet all the requirements for WeSpark's ideal customer:<br><br>";
-        const isSliderAtTop = parseInt(sliderThumb.style.top) <= 2;
-        const isStrategic = currentProjectImportance === "Strategic";
-        const knowsWeSparkWell = currentKnowOption === 2 || currentKnowOption === 3;
-        const isInGreenZone = trianglePosition <= 35;
-        if (!isSliderAtTop) errorMessage += "✗ Minimum budget must be over 5000USD<br>";
-        if (!isStrategic) errorMessage += "✗ Project must be Strategic (not Optimization or Not needed)<br>";
-        if (!knowsWeSparkWell) errorMessage += "✗ You should understand what WeSpark does or be a fan<br>";
-        if (!isInGreenZone) errorMessage += "✗ Must be ready to start in the next 2 months (green zone)";
-        showFullscreenMessage(errorMessage);
       }
     });
-
+    
     function checkLogoPosition() {
       const logoRect = logo.getBoundingClientRect();
       const targetRect = document.querySelector('.target').getBoundingClientRect();
@@ -742,7 +776,7 @@
         startCountdown();
       }
     }
-
+    
     retryButton.addEventListener('click', () => {
       isAnimationRunning = true;
       startTriangleAnimation();
@@ -750,13 +784,12 @@
       retryButton.style.display = 'none';
       triangle1.classList.remove('triangle-gray');
       triangle2.classList.remove('triangle-gray');
-      fullscreenMessage.style.display = 'none';
     });
-
+    
     let isDragging = false;
     let startY = 0;
     let startTop = 0;
-
+    
     function handleDragStart(e) {
       isDragging = true;
       const clientY = e.clientY || e.touches[0].clientY;
@@ -764,7 +797,7 @@
       startTop = parseInt(window.getComputedStyle(sliderThumb).top, 10) || 50;
       e.preventDefault();
     }
-
+    
     function handleDragMove(e) {
       if (!isDragging) return;
       const clientY = e.clientY || e.touches[0].clientY;
@@ -791,32 +824,34 @@
         rotation = Math.round(Math.atan2(b, a) * (180 / Math.PI));
       }
       logo.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(${0.5 + scale})`;
+      updateCheckboxes();
       handleCelebration();
     }
-
+    
     function handleDragEnd() {
       isDragging = false;
     }
-
+    
     sliderThumb.addEventListener('mousedown', handleDragStart);
     sliderThumb.addEventListener('touchstart', handleDragStart, { passive: false });
     document.addEventListener('mousemove', handleDragMove);
     document.addEventListener('touchmove', handleDragMove, { passive: false });
     document.addEventListener('mouseup', handleDragEnd);
     document.addEventListener('touchend', handleDragEnd);
-
+    
     imageOptions.forEach((option, index) => {
       const handleSelection = () => {
         imageOptions.forEach(opt => opt.classList.remove('selected'));
         option.classList.add('selected');
         const positions = ['20%', 'calc(50% - 5vmin)', '50%'];
         logo.style.left = positions[index];
-        const rotations = ['-70deg', '-38deg', '-2deg'];
+        const rotations = ['-64deg', '-36.6deg', '-10deg'];
         rotatingImage.style.transform = `rotate(${rotations[index]})`;
         choiceButton.textContent = option.textContent;
         choiceButton.style.color = option.getAttribute('data-value') === 'Strategic' ? 'green' :
           option.getAttribute('data-value') === 'Optimization' ? 'orange' : 'red';
         currentProjectImportance = option.getAttribute('data-value');
+        updateCheckboxes();
         handleCelebration();
       };
       option.addEventListener('click', handleSelection);
@@ -825,7 +860,7 @@
         handleSelection();
       });
     });
-
+    
     document.querySelectorAll('input[name="know"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         currentKnowOption = parseInt(e.target.value);
@@ -844,6 +879,7 @@
         } else if (currentKnowOption === 2 || currentKnowOption === 3) {
           logo.style.transform = `translate(-50%, -50%) rotate(0deg) scale(${currentScale})`;
         }
+        updateCheckboxes();
         if (
           currentProjectImportance === "Strategic" &&
           parseInt(sliderThumb.style.top) <= 2 &&
@@ -863,11 +899,11 @@
         }
       });
     });
-
+    
     function checkSection4() {
       return false;
     }
-
+    
     function celebrateWithConfetti() {
       confetti({
         particleCount: 100,
@@ -876,7 +912,7 @@
       });
       continueButton.style.display = 'block';
     }
-
+    
     function startCountdown() {
       let count = 10;
       continueButton.textContent = `Continue [${count}]`;

@@ -285,6 +285,7 @@
       cursor: pointer;
       margin-left: -7.8vmin;
     }
+    
     input[type="radio"] {
       accent-color: white;
       transform: scale(0.8);
@@ -292,6 +293,7 @@
     input[type="radio"]:checked {
       accent-color: var(--black);
     }
+    
     label:hover {
       background-color: #ffae00 !important;
     }
@@ -384,8 +386,7 @@ label:has(input[type="radio"]:checked) {
   background-color: #FFBC00 !important;
   color: black;
 }
-
-    #continueContainer {
+    #continueContainer {  
       position: fixed;
       bottom: 5%;
       left: 50%;
@@ -394,6 +395,9 @@ label:has(input[type="radio"]:checked) {
       width: 100%;
       z-index: 100;
     }
+   
+  
+
     .gauge-image {
       width: 25vmin;
       height: 10vmin;
@@ -427,42 +431,37 @@ label:has(input[type="radio"]:checked) {
       font-size: 1.7vmin;
       margin: 1vmin 0;
     }
+    
     /* Estilo para el checkbox de Minimum Budget */
 #budgetCheckbox {
   top: -8.4vmin; /* Ajusta este valor según necesites */
   left: 19.3%;
   transform: translateX(-50%);
 }
-
 /* Estilo para el checkbox de Project Importance */
 #importanceCheckbox {
   top: -8.4vmin; /* Ajusta este valor según necesites */
   left: 30%;
   transform: translateX(-50%);
 }
-
 /* Estilo para el checkbox de How well you know WeSpark */
 #knowCheckbox {
   top: -8.4vmin; /* Ajusta este valor según necesites */
   left: 25%;
   transform: translateX(-50%);
 }
-
 /* Estilo para el checkbox de Ready to Start */
 #readyCheckbox {
   top: -8.4vmin; /* Ajusta este valor según necesites */
   left: 38%;
   transform: translateX(-50%);
 }
-
-    
     /* Estilos para las checkboxes */
     .checkbox-container {
       position: relative;
       display: inline-block;
       margin-left: 1vmin;
     }
-    
     .checkbox {
       width: 2.5vmin;
       height: 2.5vmin;
@@ -472,13 +471,10 @@ label:has(input[type="radio"]:checked) {
       display: inline-block;
       position: relative;
       vertical-align: middle;
-     
     }
-    
     .checkbox.checked {
       background-color: #fff;
     }
-    
     .checkbox.checked::after {
       content: "✓";
       position: absolute;
@@ -489,6 +485,7 @@ label:has(input[type="radio"]:checked) {
       color: green;
       font-weight: bold;
     }
+    
   </style>
 </head>
 <body>
@@ -543,11 +540,9 @@ label:has(input[type="radio"]:checked) {
             <div class="image-option" data-value="Optimization">Optimization</div>
             <div class="image-option" data-value="Strategic">Strategic</div>
           </div>
-          
           <img src="https://static.wixstatic.com/media/a687f1_fb6360799d3b4d1295e738a1e37d3d7f~mv2.png" class="rotating-image" id="rotatingImage">
         </div>
       </div>
-      
       <div class="control">
         <div class="label" style="width: 14vmin;left: 15%;position: relative; ">How well you<br>know WeSpark
           <div class="checkbox-container">
@@ -590,7 +585,6 @@ label:has(input[type="radio"]:checked) {
         <br>
         <h7 class="in-one-year">In 1 year</h7>
       </div>
-      
       <div class="button-container">
         <br>
         <button id="pushButton">Push</button>
@@ -629,7 +623,6 @@ label:has(input[type="radio"]:checked) {
     const importanceCheckbox = document.getElementById('importanceCheckbox');
     const knowCheckbox = document.getElementById('knowCheckbox');
     const readyCheckbox = document.getElementById('readyCheckbox');
-    
     let trianglePosition = 50;
     let triangleDirection = 1;
     let triangleSpeed = 1.8;
@@ -641,7 +634,6 @@ label:has(input[type="radio"]:checked) {
     let sliderPosition = 50;
     let currentProgress = 5;
     let allConditionsMet = false;
-    
     document.addEventListener('DOMContentLoaded', () => {
       rotatingImage.style.transform = 'rotate(-64deg)';
       logo.style.left = '20%';
@@ -651,18 +643,11 @@ label:has(input[type="radio"]:checked) {
       updateProgressBar();
       rotatingImage.addEventListener('click', cycleToNextOption);
     });
-    
     function updateCheckboxes() {
-      // Budget checkbox (slider at top)
       budgetCheckbox.classList.toggle('checked', parseInt(sliderThumb.style.top) <= 2);
-      
-      // Importance checkbox (Strategic selected)
       importanceCheckbox.classList.toggle('checked', currentProjectImportance === "Strategic");
-      
-      // Know checkbox (options 2 or 3 selected)
       knowCheckbox.classList.toggle('checked', currentKnowOption === 2 || currentKnowOption === 3);
     }
-    
     function cycleToNextOption() {
       const options = Array.from(imageOptions);
       let currentSelectedIndex = options.findIndex(option => option.classList.contains('selected'));
@@ -680,7 +665,6 @@ label:has(input[type="radio"]:checked) {
       updateCheckboxes();
       handleCelebration();
     }
-    
     function updateProgressBar() {
       progressSegments.forEach((segment, index) => {
         segment.classList.remove('flashing');
@@ -693,7 +677,6 @@ label:has(input[type="radio"]:checked) {
         }
       });
     }
-    
     function startTriangleAnimation() {
       function animate() {
         trianglePosition += triangleDirection * triangleSpeed;
@@ -712,7 +695,6 @@ label:has(input[type="radio"]:checked) {
       }
       animate();
     }
-    
     function checkAllConditions() {
       const isSliderAtTop = parseInt(sliderThumb.style.top) <= 2;
       const isStrategic = currentProjectImportance === "Strategic";
@@ -720,10 +702,8 @@ label:has(input[type="radio"]:checked) {
       const isInGreenZone = trianglePosition <= 35;
       return isSliderAtTop && isStrategic && knowsWeSparkWell && isInGreenZone;
     }
-    
     function handleCelebration() {
-      if (checkAllConditions()) {
-        // Centrar el logo
+      if (checkAllConditions() && checkAllCheckboxes()) {
         logo.style.top = '50%';
         logo.style.left = '50%';
         logo.style.transform = 'translate(-50%, -50%) rotate(0deg) scale(1.5)';
@@ -732,17 +712,18 @@ label:has(input[type="radio"]:checked) {
         startCountdown();
       }
     }
-    
+    function checkAllCheckboxes() {
+      return budgetCheckbox.classList.contains('checked') &&
+             importanceCheckbox.classList.contains('checked') &&
+             knowCheckbox.classList.contains('checked') &&
+             readyCheckbox.classList.contains('checked');
+    }
     pushButton.addEventListener('click', () => {
       isAnimationRunning = false;
       cancelAnimationFrame(triangleAnimationId);
       allConditionsMet = checkAllConditions();
-      
-      // Actualizar checkbox del cuarto apartado SOLO cuando se hace clic en Push
       readyCheckbox.classList.toggle('checked', trianglePosition <= 35);
-      
-      if (allConditionsMet) {
-        // Centrar el logo
+      if (allConditionsMet && checkAllCheckboxes()) {
         logo.style.top = '50%';
         logo.style.left = '50%';
         logo.style.transform = 'translate(-50%, -50%) rotate(0deg) scale(1.5)';
@@ -761,7 +742,6 @@ label:has(input[type="radio"]:checked) {
         triangle2.classList.add('triangle-gray');
       }
     });
-    
     function checkLogoPosition() {
       const logoRect = logo.getBoundingClientRect();
       const targetRect = document.querySelector('.target').getBoundingClientRect();
@@ -776,7 +756,6 @@ label:has(input[type="radio"]:checked) {
         startCountdown();
       }
     }
-    
     retryButton.addEventListener('click', () => {
       isAnimationRunning = true;
       startTriangleAnimation();
@@ -785,11 +764,9 @@ label:has(input[type="radio"]:checked) {
       triangle1.classList.remove('triangle-gray');
       triangle2.classList.remove('triangle-gray');
     });
-    
     let isDragging = false;
     let startY = 0;
     let startTop = 0;
-    
     function handleDragStart(e) {
       isDragging = true;
       const clientY = e.clientY || e.touches[0].clientY;
@@ -797,7 +774,6 @@ label:has(input[type="radio"]:checked) {
       startTop = parseInt(window.getComputedStyle(sliderThumb).top, 10) || 50;
       e.preventDefault();
     }
-    
     function handleDragMove(e) {
       if (!isDragging) return;
       const clientY = e.clientY || e.touches[0].clientY;
@@ -827,18 +803,15 @@ label:has(input[type="radio"]:checked) {
       updateCheckboxes();
       handleCelebration();
     }
-    
     function handleDragEnd() {
       isDragging = false;
     }
-    
     sliderThumb.addEventListener('mousedown', handleDragStart);
     sliderThumb.addEventListener('touchstart', handleDragStart, { passive: false });
     document.addEventListener('mousemove', handleDragMove);
     document.addEventListener('touchmove', handleDragMove, { passive: false });
     document.addEventListener('mouseup', handleDragEnd);
     document.addEventListener('touchend', handleDragEnd);
-    
     imageOptions.forEach((option, index) => {
       const handleSelection = () => {
         imageOptions.forEach(opt => opt.classList.remove('selected'));
@@ -860,7 +833,6 @@ label:has(input[type="radio"]:checked) {
         handleSelection();
       });
     });
-    
     document.querySelectorAll('input[name="know"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         currentKnowOption = parseInt(e.target.value);
@@ -880,30 +852,9 @@ label:has(input[type="radio"]:checked) {
           logo.style.transform = `translate(-50%, -50%) rotate(0deg) scale(${currentScale})`;
         }
         updateCheckboxes();
-        if (
-          currentProjectImportance === "Strategic" &&
-          parseInt(sliderThumb.style.top) <= 2 &&
-          trianglePosition <= 35 &&
-          (currentKnowOption === 2 || currentKnowOption === 3) &&
-          checkSection4()
-        ) {
-          if (!allConditionsMet) {
-            allConditionsMet = true;
-            celebrateWithConfetti();
-            continueButton.style.display = 'block';
-            startCountdown();
-          }
-        } else {
-          allConditionsMet = false;
-          continueButton.style.display = 'none';
-        }
+        handleCelebration();
       });
     });
-    
-    function checkSection4() {
-      return false;
-    }
-    
     function celebrateWithConfetti() {
       confetti({
         particleCount: 100,
@@ -911,8 +862,12 @@ label:has(input[type="radio"]:checked) {
         origin: { y: 0.6 }
       });
       continueButton.style.display = 'block';
+
+      // Deshabilitar los botones de radio después de la celebración
+      document.querySelectorAll('input[name="know"]').forEach(radio => {
+        radio.disabled = true;
+      });
     }
-    
     function startCountdown() {
       let count = 10;
       continueButton.textContent = `Continue (${count})`;
